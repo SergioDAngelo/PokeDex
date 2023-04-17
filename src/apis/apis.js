@@ -1,6 +1,7 @@
 import baseURL from './baseUrl'
 
-const getAllPokeData = () =>  baseURL.get('/pokemon/')
+const getAllPokeData = () =>  baseURL.get('/pokemon/?limit=1279')
+
 const getPokeInfo = (id) =>  baseURL.get(`/pokemon/${id}/`)
 const getPokeSpecies = (id) => baseURL.get(`/pokemon-species/${id}`)
 
