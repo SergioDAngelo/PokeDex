@@ -1,14 +1,15 @@
 import './App.css';
-import {Button, Grid, Typography} from '@mui/material'
+
 import {Routes, Route} from 'react-router-dom'
-import Home from './pages/home/home';
-import PokeDetails from './pages/pokeDetails'
+
+import PokeDetails from './pages/pokeDetails.tsx'
+import HomeScreen from './pages/home/HomeScreen.tsx';
 
 
 function App() {
   return (
   <Routes>
-    <Route path='/' element={<Home/>}/>
+    <Route path='/' element={<HomeScreen/>}/>
     <Route path='/pokeDetails/:id' element={<PokeDetails/>}/>
   </Routes>
   );

@@ -15,7 +15,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-const Home = () => {
+const HomeScreen = () => {
 	const [allPokeData, setAllPokeData] = useState([]);
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -42,6 +42,9 @@ const Home = () => {
 		setPage(0);
 	};
 
+	interface PokeData{
+		name: string,
+	}
 	return (
 		<Grid container sx={{
 			display:'flex',
@@ -81,9 +84,10 @@ const Home = () => {
 						</TableHead>
 						<TableBody>
 							{(allPokeData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-							).map((row, index) => (
+							).map((row:PokeData, index) => 
 								<TableRow key={row.name}>
 									<TableCell component="th" scope="row" style={{ width: 160 }} align="center">
+										{/* ARMAR UNA LISTA NUMERICA QUE TOME EN CUENTA TODOS LOS POKEMONES  */}
 										N° {index+1}
 									</TableCell>
 									<TableCell style={{ width: 160 }} align="center">
@@ -93,7 +97,7 @@ const Home = () => {
 										{PokeID(row)}
 									</TableCell>
 								</TableRow>
-							))}
+							)}
 						</TableBody>
 						<TableFooter sx={{
 							alignContent:'center',
@@ -116,4 +120,5 @@ const Home = () => {
 	);
 
 }
-export default Home;
+
+export default HomeScreen;

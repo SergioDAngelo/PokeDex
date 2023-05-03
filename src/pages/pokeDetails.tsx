@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 import { getPokeInfo, getPokeSpecies, getEvoChain } from "../apis/apis";
 
+
 import Link from '@mui/material/Link';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -18,14 +19,15 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 
 const PokeDetails = () => {
     const params = useParams()
-    const [pokeDetail, setPokeDatail] = useState();
-    const [pokeType, setPokeType] = useState([]);
-    const [pokeAbility, setPokeAbility] = useState([]);
-    const [pokeMoves, setPokeMoves] = useState([]);
+    const [pokeDetail, setPokeDatail] = useState<PokeData>();
+    const [pokeType, setPokeType] = useState<PokeData[]>([]);
+    const [pokeAbility, setPokeAbility] = useState<PokeData[]>([]);
+    const [pokeMoves, setPokeMoves] = useState<PokeData[]>([]);
     const [PokeUrlEvo, setPokeUrlEvo] = useState()
-    const [pokeFirstEvo, setPokeFirstEvo] = useState()
-    const [pokeSecondEvo, setPokeSecondEvo] = useState()
-    const [pokeThirdEvo, setPokeThirdEvo] = useState()
+    const [pokeFirstEvo, setPokeFirstEvo] = useState<PokeData>()
+    const [pokeSecondEvo, setPokeSecondEvo] = useState<PokeData[]>([])
+    // solucion ante arrays anidados 
+    const [pokeThirdEvo, setPokeThirdEvo] = useState<Array <PokeData[]>>([])
     const [pokeFirstEvoName, setPokeFirstEvoName] = useState()
     const [open, setOpen] = React.useState(true);
     const [open2, setOpen2] = React.useState(true);
@@ -99,6 +101,26 @@ const PokeDetails = () => {
         return evo3
     }
 
+    interface PokeData{
+        
+		name: string,
+        sprites: any,
+        id: number,
+        base_experience: number,
+        height: number,
+        weight: number,
+        type: Row,
+        ability:Row,
+        move: Row,
+        url:string
+
+	}
+    // se puede usar interfaces anidadas, y a la vez valores que pueden existir o no en otras variables ej: strong?: string,
+    interface Row{
+        name:string,
+        
+    }
+
     return (
         <Grid container
         sx={{
@@ -131,13 +153,13 @@ const PokeDetails = () => {
                             maxWidth: '100%',
                             maxHeight: '100%',
                         }}
-                        image={pokeDetail?.sprites.other.dream_world.front_default}
+                        image={pokeDetail?.sprites.other.dream_world.front_default?pokeDetail?.sprites.other.dream_world.front_default:pokeDetail?.sprites.front_default}
                         title={pokeDetail?.name}/>
                     <CardContent sx={{textAlign: 'center', alignItems: 'center'}}>
                         <Typography gutterBottom variant="h3" component="div">
-                            {pokeDetail?.name.charAt(0).toUpperCase() + pokeDetail?.name.slice(1)}
+                            {pokeDetail && pokeDetail?.name.charAt(0).toUpperCase() + pokeDetail?.name.slice(1)}
                         </Typography>
-                        <Grid variant="body2" color="text.secondary">
+                        <Grid color="text.secondary">
                             <List component="nav" aria-labelledby="nested-list-subheader">
                                 <ListItemText>
                                     Pokedex Index: {pokeDetail?.id}
@@ -157,7 +179,7 @@ const PokeDetails = () => {
                                 <Collapse in={open7} timeout="auto" unmountOnExit>
                                     <List component="div" disablePadding>
                                         <ListItemText>
-                                            {pokeType?.map((element) => (<ListItemText >{element.type.name}</ListItemText>))}
+                                            {pokeType?.map((element,i) => (<ListItemText key={i}>{element.type.name}</ListItemText>))}
                                         </ListItemText>
                                     </List>
                                 </Collapse>
@@ -167,7 +189,7 @@ const PokeDetails = () => {
                                 <Collapse in={open6} timeout="auto" unmountOnExit>
                                     <List component="div" disablePadding>
                                         <ListItemText>
-                                            {pokeAbility?.map((element) => (<ListItemText >{element.ability.name}</ListItemText>))}
+                                            {pokeAbility?.map((element, i) => (<ListItemText key={i}>{element.ability.name}</ListItemText>))}
                                         </ListItemText>
                                     </List>
                                 </Collapse>
@@ -177,7 +199,7 @@ const PokeDetails = () => {
                                 <Collapse in={open} timeout="auto" unmountOnExit>
                                     <List component="div" disablePadding>
                                         <ListItemText>
-                                            {firstMoves?.map((element) => (<ListItemText >{element.move.name}</ListItemText>))}
+                                            {firstMoves?.map((element, i) => (<ListItemText key={i}>{element.move.name}</ListItemText>))}
                                         </ListItemText>
                                     </List>
                                 </Collapse>
@@ -198,7 +220,7 @@ const PokeDetails = () => {
                                             2nd Evo Chain : {open3 ? <ExpandLess /> : <ExpandMore />}
                                         </ListItemButton>
                                         <Collapse in={open3} timeout="auto" unmountOnExit>
-                                            {pokeSecondEvo?.length > 1 ?
+                                            { pokeSecondEvo?.length > 1 ?
                                                 pokeSecondEvo?.map(item => <ListItemButton sx={{ pl: 4, justifyContent:'center' }} onClick={() => navigate(`/pokeDetails/${getidPoke2(item.url)}`)}>
                                                     {item.name}</ListItemButton>) :
                                                 pokeSecondEvo?.map(item => <ListItemButton sx={{ pl: 4, justifyContent:'center' }} onClick={() => navigate(`/pokeDetails/${getidPoke2(item.url)}`)}>
@@ -208,7 +230,7 @@ const PokeDetails = () => {
                                             3rd Evo Chain : {open4 ? <ExpandLess /> : <ExpandMore />}
                                         </ListItemButton>
                                         <Collapse in={open4} timeout="auto" unmountOnExit>
-                                            {pokeThirdEvo !== undefined && pokeThirdEvo[0].length > 0 ? pokeThirdEvo?.map(item => item.map(item => <ListItemButton sx={{ pl: 4, justifyContent:'center'}} onClick={() => navigate(`/pokeDetails/${getidPoke3(item.url)}`)}>
+                                            {pokeThirdEvo !== undefined && pokeThirdEvo[0]?.length > 0 ? pokeThirdEvo?.map(item => item.map(item => <ListItemButton sx={{ pl: 4, justifyContent:'center'}} onClick={() => navigate(`/pokeDetails/${getidPoke3(item.url)}`)}>
                                                 {item.name}</ListItemButton>)) :
                                                 pokeThirdEvo?.map(item => item.map(item => <ListItemButton sx={{ pl: 4, justifyContent:'center' }} onClick={() => navigate(`/pokeDetails/${getidPoke3(item.url)}`)}>
                                                     {item.name}</ListItemButton>))}
