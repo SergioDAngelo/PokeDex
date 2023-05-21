@@ -1,9 +1,7 @@
-import axios from 'axios'
+// import axios from 'axios'
+import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 
- const baseURL = axios.create({
-    baseURL: 'https://pokeapi.co/api/v2',
-    headers: {
-        "Content-type": "aplication/json",
-    }
-})
-export default baseURL;
+export const pokeInfo = new ApolloClient({
+  uri: 'https://beta.pokeapi.co/graphql/v1beta',
+  cache: new InMemoryCache(),
+});
