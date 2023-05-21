@@ -99,15 +99,13 @@ const HomeScreen = () => {
 	const location = useLocation();
 	const query = new URLSearchParams(location.search);
 
-	//const [page, setPage] = useState(0);
-	const page = parseInt(query.get('page') || '0', 15);
-	//const offset = (page - 1)* 12;
+	const page = parseInt(query.get('page') || '1', 15);
 	const adjustedPage = page - 1;
 	const [rowsPerPage, setRowsPerPage] = useState(15);
 	const [close, setClose] = React.useState(false);
 
 	const { loading, error, data } = useQuery(PokeApi);
-	
+
 	const [name, setName] = useState<string>("");
 	const [isBaby, setIsBaby] = useState<boolean>(false);
 	const [color, setColor] = useState<string>('');
@@ -117,17 +115,7 @@ const HomeScreen = () => {
 
 
 
-	const [getResult, { data: dataB }] = useLazyQuery(GET_Poke_Ubi, {
-		variables: {
-			name: `%${name}%`,
-			isBaby,
-			color,
-			minWeight,
-			maxWeight,
-			types,
-
-		}
-	})
+	const [getResult, { data: dataB }] = useLazyQuery(GET_Poke_Ubi)
 
 	useEffect(() => {
 		//la funcion o lo que haga la peticion a la api
@@ -377,7 +365,19 @@ const HomeScreen = () => {
 								/>
 							</Grid>
 							</Box>
-							<IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={() => getResult()}>
+							<IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={() => getResult(
+								{
+									variables: {
+										name: `%${name}%`,
+										isBaby,
+										color,
+										minWeight,
+										maxWeight,
+										types,
+							
+									}
+								}
+							)}>
 								<SearchIcon />
 							</IconButton>
 						</Paper>
