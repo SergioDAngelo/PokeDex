@@ -446,7 +446,7 @@ const HomeScreen = () => {
 									}}
 									page={page}
 									count={countPagination}
-									// count={80}
+						
 									renderItem={(item) => (
 										<PaginationItem
 											component={Link}
