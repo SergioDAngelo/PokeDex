@@ -209,7 +209,7 @@ const HomeScreen = () => {
 			<img src={pokeLogo} alt='pokeLogo' width='70%' />
 		</Grid>
 		<Grid item
-			xs={6}
+			xs={11} md={8} lg={7}
 			sx={{
 				alignItems: 'center',
 				alignContent: 'center',
@@ -388,7 +388,7 @@ const HomeScreen = () => {
 				{/* CONTENT LIST - BODY */}
 				<Table sx={{
 					minWidth: 100,
-					backgroundColor: 'beige'
+					backgroundColor: 'beige',
 				}} aria-label="POKEDEX">
 					<TableHead>
 						<TableRow>
