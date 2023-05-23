@@ -215,9 +215,9 @@ const HomeScreen = () => {
 				alignContent: 'center',
 				justifyContent: 'center'
 			}}>
-			<TableContainer component={Paper} sx={{backgroundColor: 'gold'}}>
+			<TableContainer component={Paper} sx={{backgroundColor: 'gold', textAlign:'center', justifyContent:'center'}}>
 				{/* SEARCH & FILTERS - HEADER*/}
-				<ListItemText onClick={handleClick} sx={{backgroundColor: 'gold', width: '100%', textAlign: 'center'}}>
+				<ListItemText onClick={handleClick} sx={{backgroundColor: 'gold', width: '100%', textAlign: 'center', justifyContent: 'center'}}>
 				Find Your Pokemon! {close ? <ExpandMore /> : <ExpandLess />}
 				</ListItemText>
 				<Collapse  in={close} timeout="auto" unmountOnExit >
@@ -225,10 +225,11 @@ const HomeScreen = () => {
 					<ListItemText >
 						<Paper
 							component="form"
-							sx={{ p: '2px 4px',
+							sx={{ p: '2px 2px',
 							display: 'flex', 
-							width: '100%', 
-							backgroundColor: 'gold', 
+							width: '95%', 
+							backgroundColor: 'gold',
+							alignItems: 'center', 
 							flexDirection: 'column' }}>
 							{/* SEARCH and CHECKBOX */}
 							<Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>	
@@ -275,7 +276,7 @@ const HomeScreen = () => {
 							</Grid>
 							</Box>
 							{/* SIMPLE SELECT and MULTIPLE SELECT OPTIONS */}
-							<Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+							<Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width:'90%'}}>
 								{/* SIMPLE SELECT */}
 							<Grid sx={{
 								width: '50%',
@@ -283,7 +284,7 @@ const HomeScreen = () => {
 								justifyContent: 'center',
 								alignItems: 'center',
 							}}>
-								<Box sx={{ width:'100%' ,minWidth: 120 }}>
+								<Box sx={{ width:'100%' ,minWidth: 120, p:1 }}>
 									<FormControl fullWidth>
 										<InputLabel id="demo-simple-select-label">Color</InputLabel>
 										<Select
@@ -307,7 +308,8 @@ const HomeScreen = () => {
 								alignItems: 'center',
 							}}
 							>
-								<FormControl sx={{ m: 1, width: 300 }}>
+								<Box sx={{ width:'100%' ,minWidth: 120, p:1 }}>
+								<FormControl fullWidth>
 									<InputLabel id="demo-multiple-checkbox-label">Types</InputLabel>
 									<Select
 										labelId="demo-multiple-checkbox-label"
@@ -329,6 +331,7 @@ const HomeScreen = () => {
 										))}
 									</Select>
 								</FormControl>
+								</Box>
 							</Grid>
 							</Box>
 							{/* SELECT BY RANGE */}
