@@ -101,7 +101,7 @@ const PokeDetails = () => {
 			backgroundColor: 'red'
 		}}>
 			<Grid item 
-				xs={11} md={8} lg={8} 
+				xs={9.5} md={11} lg={14} 
 				sx={{
 				display: 'flex',
 				alignItems:'center',
@@ -110,7 +110,7 @@ const PokeDetails = () => {
 				textAlign: 'center'}}>
 			<Card sx={{
 				bgcolor: 'beige',
-				maxWidth:500,
+				maxWidth:700,
 				width:'100%'}}>
 				<CardMedia
 						sx={{   
