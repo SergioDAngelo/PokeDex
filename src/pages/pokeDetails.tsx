@@ -101,7 +101,7 @@ const PokeDetails = () => {
 			backgroundColor: 'red'
 		}}>
 			<Grid item 
-				xs={6} 
+				xs={11} md={8} lg={8} 
 				sx={{
 				display: 'flex',
 				alignItems:'center',
