@@ -119,7 +119,7 @@ const HomeScreen = () => {
 	const [getResult, { data: dataB }] = useLazyQuery(GET_Poke_Ubi)
 
 	useEffect(() => {
-		setCountPagination( Math.round((data.TotalPoke.aggregate.count)/10))
+		setCountPagination( Math.round((data?.TotalPoke.aggregate.count)/10))
 	}, [data])
 
 	if (loading) return <p>Loading...</p>;
