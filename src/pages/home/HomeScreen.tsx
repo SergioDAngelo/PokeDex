@@ -205,7 +205,7 @@ const HomeScreen = () => {
 				justifyContent: 'center',
 				alignItems: 'center',
 			}}>
-			<img src={pokeLogo} alt='pokeLogo' height='300vh' />
+			<img src={pokeLogo} alt='pokeLogo' width='70%' />
 		</Grid>
 		<Grid item
 			xs={6}
@@ -260,7 +260,7 @@ const HomeScreen = () => {
 							}}
 							>
 								<Checkbox
-									aria-label="Its a baby?"
+									aria-label="Is it a baby?"
 									checked={isBaby}
 									onChange={(e) => setIsBaby(e.target.checked)}
 								/>
@@ -268,7 +268,7 @@ const HomeScreen = () => {
 									sx={{
 										flex: 1,
 									}}
-									placeholder="Its a baby?"
+									placeholder="Is it a baby?"
 									disabled
 								/>
 							</Grid>
@@ -386,7 +386,7 @@ const HomeScreen = () => {
 				</Collapse>
 				{/* CONTENT LIST - BODY */}
 				<Table sx={{
-					minWidth: 500,
+					minWidth: 100,
 					backgroundColor: 'beige'
 				}} aria-label="POKEDEX">
 					<TableHead>
@@ -444,7 +444,7 @@ const HomeScreen = () => {
 										backgroundColor: 'gold'
 									}}
 									page={page}
-									count={(Math.round(data.TotalPoke.aggregate.count / 10)) - 1}
+									count={(Math.round(data.TotalPoke.aggregate.count / 15)) - 1}
 									renderItem={(item) => (
 										<PaginationItem
 											component={Link}
