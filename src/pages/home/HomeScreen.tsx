@@ -99,9 +99,10 @@ const HomeScreen = () => {
 	const location = useLocation();
 	const query = new URLSearchParams(location.search);
 
-	const page = parseInt(query.get('page') || '1', 15);
+	const page = parseInt(query.get('page') || '1', 10);
+	const [countPagination, setCountPagination] = useState(0)
 	const adjustedPage = page - 1;
-	const [rowsPerPage, setRowsPerPage] = useState(15);
+	const [rowsPerPage, setRowsPerPage] = useState(10);
 	const [close, setClose] = React.useState(false);
 
 	const { loading, error, data } = useQuery(PokeApi);
@@ -118,8 +119,8 @@ const HomeScreen = () => {
 	const [getResult, { data: dataB }] = useLazyQuery(GET_Poke_Ubi)
 
 	useEffect(() => {
-		//la funcion o lo que haga la peticion a la api
-	}, [])
+		setCountPagination( Math.round((data.TotalPoke.aggregate.count)/10))
+	}, [data])
 
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error : {error.message}</p>;
@@ -444,7 +445,8 @@ const HomeScreen = () => {
 										backgroundColor: 'gold'
 									}}
 									page={page}
-									count={(Math.round(data.TotalPoke.aggregate.count / 15)) - 1}
+									count={countPagination}
+									// count={80}
 									renderItem={(item) => (
 										<PaginationItem
 											component={Link}
